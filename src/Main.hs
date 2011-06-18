@@ -1,4 +1,4 @@
-import qualified Espresso.Lexer as Lexer
+import qualified Espresso.Parser as Parser
 
 main :: IO()
-main = print $ Lexer.lex "123 aab 23"
+main = print $ Parser.parse "foo"
