@@ -34,6 +34,6 @@ oneOf cs = satisfy (flip elem cs)
 satisfy :: (Char -> Bool) -> Parser Char
 satisfy p = Parser $ \s -> case s of 
                             (x:xs) -> if p x 
-                                        then return (xs, x)
+                                        then Right (xs, x)
                                         else Left $ "Parse error on " ++ (x:xs)
                             []     -> Left "No input string"
