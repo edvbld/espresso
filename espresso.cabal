@@ -11,12 +11,19 @@ Cabal-version:       >=1.2
 
 Test-Suite test-espresso
     type:            exitcode-stdio-1.0
-    Hs-source-dirs:  src, test, lib
+    Hs-source-dirs:  src, test/espresso, lib
     GHC-options:     -Wall
     Build-depends:   QuickCheck >= 2.4, test-framework >= 0.4, 
                      test-framework-quickcheck2, base >= 4
     Main-is:         Test.hs
-    
+
+Test-Suite test-parser
+    type:            exitcode-stdio-1.0
+    Hs-source-dirs:  test/parser, lib
+    GHC-options:     -Wall
+    Build-depends:   QuickCheck >= 2.4, test-framework >= 0.4, 
+                     test-framework-quickcheck2, base >= 4
+    Main-is:         Test.hs
 
 Executable espresso
     Hs-source-dirs:  src, lib
