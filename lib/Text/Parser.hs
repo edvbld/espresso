@@ -1,10 +1,20 @@
+-- | Contains the Parser type and the parse function
 module Text.Parser(Parser(..), ParseError, parse) where
 
 import Control.Monad
 
+-- | Represents a parse error
 type ParseError = String
+
+-- | The parser type, a parser is a function from String to either a parse 
+-- error or a pair of the remaining input string and the parsed value.
 newtype Parser a = 
-    Parser { run :: String -> Either ParseError (String, a) }
+    -- | The low-level constructor for a Parser. You shouldn't have to use
+    -- this constructor, instead, use the combinators.
+    Parser { 
+        -- | 'run' is the most low-level way to run a parser. 
+        -- 'parse' is probably a better alternative in almost all cases.
+        run :: String -> Either ParseError (String, a) }
 
 instance Monad Parser where
     -- return :: a -> Parser a
@@ -29,6 +39,7 @@ instance MonadPlus Parser where
                         Left _  -> run b s
                         Right res -> Right res
 
+-- | 'parse' runs a parser on a given string and returns the result
 parse :: Parser a -> String -> Either ParseError a
 parse p s = case run p s of
              Left err     -> Left err
