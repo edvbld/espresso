@@ -1,9 +1,9 @@
 module ParserProperties where
 
 import Test.QuickCheck
+import Text.Parser(parse)
 import Espresso.Parser(identifier)
 import Espresso.AST
-import Text.Parser(parse)
 
 data Id = Id String
           deriving (Show)
@@ -17,4 +17,4 @@ instance Arbitrary Id where
 
 
 prop_parse_identifier :: Id -> Bool
-prop_parse_identifier (Id s) = parse identifier s == Right (Identifier s)
+prop_parse_identifier (Id s) = parse identifier s == Right (MJIdentifier s)

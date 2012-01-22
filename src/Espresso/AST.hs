@@ -2,6 +2,12 @@
 -- used in the compiler
 module Espresso.AST where
 
+newtype MJIdentifier = MJIdentifier String
+                       deriving (Show, Eq)
+
+data MJStatement = MJStatement
+                   deriving (Show, Eq)
+
 -- | The datatype for an expression in MiniJava
-data MJExpression = Identifier String
+data MJExpression = MJMainClass MJIdentifier MJIdentifier [MJStatement]
                     deriving (Show, Eq)

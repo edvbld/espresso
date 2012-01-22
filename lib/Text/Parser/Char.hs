@@ -4,7 +4,9 @@ module Text.Parser.Char(
     alphaNum,
     letter,
     oneOf,
-    satisfy) where
+    satisfy,
+    string,
+    spaces) where
 
 import Text.Parser
 
@@ -32,9 +34,18 @@ alphaNum = oneOf (chars ++ digits)
 letter :: Parser Char
 letter = oneOf chars
 
+-- | 'string' matches the given string
+string :: String -> Parser Char
+string [c] = char c
+string s = char (head s) >> string (tail s)
+
 -- | 'oneOf' matches any of the charachters in the given list of characthers
 oneOf :: [Char] -> Parser Char
 oneOf cs = satisfy (flip elem cs)
+
+-- | 'spaces' matches any kind of whiteSpace character
+spaces :: Parser Char
+spaces = oneOf ['\n', '\t', ' ']
 
 -- | 'satisfy' matches the first character in the string against the given 
 -- predicate
